@@ -1,0 +1,24 @@
+{% render 'partials/head.liquid' %}
+{% render 'partials/header.liquid' %}
+<main>
+
+{% render 'partials/filter.liquid' %}
+
+    <div class="container">
+        <section class="carousel">
+            <div class="outer">
+                {% for employee in employees %}
+                            <div class="inner">
+                                <div class="slide">
+                                    <img src="https://picsum.photos/200/300" alt="">
+                                </div>
+                            </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    {% render 'partials/vacatures.liquid' %}
+</main>
+
+{% render 'partials/foot.liquid' %}
