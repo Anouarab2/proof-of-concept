@@ -104,6 +104,14 @@ header{
 nav{
     display: flex;
     justify-content: center;
+    gap: 2em;
+    button{
+        background: none;
+        border: none;
+        color: var(--main-accent-color);
+        font-weight: 700;
+        font-size: 1.2em;
+    }
 }
 
 q42{
