@@ -1,0 +1,15 @@
+<section class="messages-section">
+    <h2>Laat een reactie achter</h2>
+    <form action="/berichten" method="post">
+    <input type="text" name="text" placeholder="Typ je bericht" required />
+    <button type="submit">Plaatsen</button>
+  </form>
+  
+  <ul>
+    {% for bericht in berichten %}
+      <li>{{ bericht.text }}</li>
+    {% else %}
+      <li>Geen berichten gevonden</li>
+    {% endfor %}
+  </ul>
+</section>

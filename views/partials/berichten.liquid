@@ -1,0 +1,22 @@
+<section class="messages-section"> 
+
+<h1>Laat een bericht achter</h1>
+
+<form method="POST" action="/berichten">
+  <label for="message">Bericht</label>
+  <textarea id="message" name="message"></textarea>
+  <button class="button" type="submit">Verstuur</button>
+</form>
+
+<h2>Berichten</h2>
+<ul>
+  {% if berichten.size > 0 %}
+    {% for bericht in berichten %}
+      <li>{{ bericht.text | escape }}</li>
+    {% endfor %}
+  {% else %}
+    <li>Geen berichten gevonden.</li>
+  {% endif %}
+</ul>
+
+</section>
