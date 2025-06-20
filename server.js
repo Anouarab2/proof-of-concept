@@ -2,21 +2,22 @@ import 'dotenv/config';
 import express from 'express';
 import { Liquid } from 'liquidjs';
 
-const app = express()
+const app = express();
 
 app.use(express.static("public"));
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 const engine = new Liquid();
 app.engine('liquid', engine.express());
 
-app.set('views', './views')
+app.set('views', './views');
 
 app.engine('liquid', engine.express());
 app.set('view engine', 'liquid');
 app.set('views', './views');
-
 
 
 app.get('/', async (req, res) => {
@@ -50,37 +51,41 @@ app.get('/', async (req, res) => {
 });
 
 
-  app.post('/', async (req, res) => {
-    const message = req.body.message;
-  
-    const bodyData = {
-      text: message,
-      person: 168,
-      for: 'homepage'  // vul hier een waarde in die jij wilt gebruiken om te filteren
-    };
-  
-    console.log('Te versturen data:', bodyData);
-  
+app.post('/', async (req, res) => {
+  const message = req.body.message;
+
+  const bodyData = {
+    text: message,
+    person: 168,
+    for: 'homepage'
+  };
+
+  try {
     const response = await fetch('https://fdnd.directus.app/items/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(bodyData)
     });
-  
+
     const responseData = await response.json();
-    console.log('Antwoord van Directus:', responseData);
-  
-    res.redirect(303, '/');
-  });
+
+    res.status(200).json(responseData.data);
+  } catch (err) {
+    res.status(500).json({ error: 'Fout bij verzenden' });
+  }
+});
 
 
+app.get('/menu', async (request, response) => {
+  response.render('menu.liquid');
+});
 
-app.set('port', process.env.PORT || 8000)
+app.set('port', process.env.PORT || 8000);
 
 app.listen(app.get('port'), function () {
-    console.log(`http://localhost:${app.get('port')}`)
-})
+  console.log(`http://localhost:${app.get('port')}`);
+});
 
-// app.use((req, res, next) => {
-//   res.status(404).render("404.liquid")
-// })
+app.use((req, res, next) => {
+  res.status(404).render("404.liquid")
+})

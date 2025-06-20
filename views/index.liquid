@@ -7,21 +7,26 @@
     <div class="container">
         <section class="carousel">
             <div class="outer">
-                {% for employee in employees %}
-                    <div class="inner employee" data-tags="{{ employee.tags | join: ',' }}">
-                        <div class="slide">
-                            <img src="{% if employee.avatars[0] %}{{ employee.avatars[0] }}{% else %}{{ employee.avatars[1] }}{% endif %}" alt="{{ employee.name }}">
-                            <div class="employee-info">
-                                <h3>{{ employee.name }}</h3>
-                                <h4>
-                                    {% for tag in employee.tags %}
-                                    <span>{{ tag }}</span>{% unless forloop.last %}, {% endunless %}
-                                    {% endfor %}
-                                </h4>
+                {% if employees.size > 0 %}
+                    {% for employee in employees %}
+                            <div class="inner employee" data-tags="{{ employee.tags | join: ',' }}">
+                                <div class="slide">
+                                    <img src="{% if employee.avatars[0] %}{{ employee.avatars[0] }}{% else %}{{ employee.avatars[1] }}{% endif %}" alt="{{ employee.name }}">
+                                    <div class="employee-info">
+                                        <h3>{{ employee.name }}</h3>
+                                        <h4>
+                                            {% for tag in employee.tags %}
+                                                <span>{{ tag }}</span>{% unless forloop.last %}, {% endunless %}
+                                            {% endfor %}
+                                        </h4>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+
+                {% else %}
+                    <p>geen personen gevonden</p>
+                {% endif %}
             </div>
         </section>
     </div>
@@ -29,29 +34,33 @@
     {% render 'partials/vacatures.liquid' %}     
     
     <section class="messages-section"> 
-
         <h1>Laat een bericht achter</h1>
-        
+
         <form method="POST" action="/">
             <label for="message">Bericht:</label>
             <textarea id="message" name="message"></textarea>
-            <button class="button" type="submit">Verstuur</button>
-        </form>
+            <button class="button" type="submit">
+                <span class="button-text">Verstuur</span>
+                <span class="loader" aria-hidden="true"></span>
+            </button>
         
+            <div id="success-popup" class="success-popup"></div>
+        </form>
+          
         <h2>Berichten</h2>
+        <ul id="message-list">
+            {% if berichten.size > 0 %}
 
-        <ul>
-        {% if berichten.size > 0 %}
-            {% for bericht in berichten %}
-            <li>{{ bericht.text | escape }}</li>
-            {% endfor %}
-        {% else %}
-            <li>Geen berichten gevonden.</li>
-        {% endif %}
+                {% for bericht in berichten %}
+                <li>{{ bericht.text | escape }}</li>
+                {% endfor %}
+
+            {% else %}
+                {% render 'partials/messages-empty.liquid' %}
+            {% endif %}
         </ul>
-
     </section>
-      
+
 </main>
 
 {% render 'partials/foot.liquid' %}

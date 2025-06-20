@@ -99,6 +99,9 @@ header{
             align-items: center;
         }
     }
+
+}
+
 }
 
 nav{
@@ -110,7 +113,8 @@ nav{
         border: none;
         color: var(--main-accent-color);
         font-weight: 700;
-        font-size: 1.2em;
+        font-size: 1.2rem;
+        font-family: proxima-nova, sans-serif; ;
     }
 }
 
@@ -213,13 +217,9 @@ q42{
     /* position: relative; */
     flex: 0 0 33%;
     width: 33%;
-    /* padding-left: 1em; */
     min-width: 10em;
     max-width: 20em;
     overflow-y: hidden;
-    &:first-of-type{
-        /* margin-left: -1em; */
-    }
 }
 
 
@@ -291,6 +291,7 @@ q42{
             }
         }
     }
+
     a{
         margin-left: 1rem;
         text-decoration: none;
@@ -321,7 +322,6 @@ q42{
             align-items: center;
         }
     }
-
 }
 
 .messages-section{
@@ -334,6 +334,7 @@ q42{
         gap: 1em;
         justify-self: center;
         align-items: center;
+        position: relative;
 
         @media(min-width:500px){
             display: flex;
@@ -344,6 +345,63 @@ q42{
     }
 }
 
+.button {
+    position: relative;
+    padding: 0.6em 1.5em;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+  
+.loader {
+    display: none;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    animation: spin 1s linear infinite;
+}
+  
+.button.loading .loader {
+    display: inline-block;
+}
+  
+.button.loading .button-text {
+    display: none;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+  
+.success-popup {
+    position: absolute;
+    bottom: 100%; 
+    left: 0;
+    margin-bottom: 10px;
+    background: #4caf50;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-weight: bold;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 9999;
+}
+  
+.success-popup.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+  
 footer{
     background-color: var(--secondary-background-color);
     overflow: hidden;
@@ -387,19 +445,6 @@ footer{
     a{
         justify-self: center;
     }
-
-    /* &::after{
-        content: '';
-        position: absolute;
-        z-index: -1;
-        left: 50%;
-        width: 400%;
-        height: 500%;
-        background-color: var(--secondary-background-color);
-        border-radius: 50%;
-        translate: -50% 0;
-        bottom: -713%;
-    } */
 }
 
 .info-footer{
@@ -411,9 +456,6 @@ footer{
         flex-direction: row;
         justify-content: center;
         gap: clamp(4rem, 12vw, 15rem);
-    }
-    section{
-        /* min-width: 30%; */
     }
 }
 
