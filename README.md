@@ -11,7 +11,6 @@ De instructies voor deze opdracht staan in: [docs/INSTRUCTIONS.md](https://githu
   * [Gebruik](#gebruik)
   * [Kenmerken](#kenmerken)
   * [Installatie](#installatie)
-  * [Bronnen](#bronnen)
   * [Licentie](#licentie)
 
 ## Beschrijving
